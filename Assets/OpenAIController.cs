@@ -13,18 +13,19 @@ public class OpenAIController : MonoBehaviour
 {
     public TMP_Text textField;
     public TMP_InputField inputField;
-    public Button SendButton;
-    
-    public OpenAIAPI API;
+
+    private OpenAIAPI api;
 
     private List<ChatMessage> messages;
     
+    private bool isButtonEnabled;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        API = new OpenAIAPI(Environment.GetEnvironmentVariable("OPENAI_API_KEY", EnvironmentVariableTarget.User));
+        api = new OpenAIAPI(Environment.GetEnvironmentVariable("OPENAI_API_KEY", EnvironmentVariableTarget.User));
         StartConversation();
-        SendButton.clicked += GetResponse;
+        isButtonEnabled = true;
     }
 
     private void StartConversation()
@@ -44,7 +45,7 @@ public class OpenAIController : MonoBehaviour
             return;
         }
         
-        SendButton.SetEnabled(false);
+        isButtonEnabled = false;
         
         var userMessage = new ChatMessage(ChatMessageRole.User, inputField.text);
         if (userMessage.TextContent.Length > 100)
@@ -58,7 +59,7 @@ public class OpenAIController : MonoBehaviour
         textField.text = $"You: {userMessage.TextContent}";
         inputField.text = "";
         
-        var chatResult = await API.Chat.CreateChatCompletionAsync(new ChatRequest()
+        var chatResult = await api.Chat.CreateChatCompletionAsync(new ChatRequest()
         {
             Model = Model.ChatGPTTurbo,
             Temperature = 0.1,
@@ -73,9 +74,14 @@ public class OpenAIController : MonoBehaviour
         
         textField.text = $"You: {userMessage.TextContent}\n\nGuard: {responseMessage.TextContent}";
         
-        SendButton.SetEnabled(true);
+        isButtonEnabled = true;
     }
-
-    // Update is called once per frame
-    void Update() {}
+    
+    public void OnSendButtonClicked()
+    {
+        if (isButtonEnabled)
+        {
+            GetResponse();
+        }
+    }
 }
