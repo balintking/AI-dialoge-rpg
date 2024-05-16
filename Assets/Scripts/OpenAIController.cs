@@ -15,7 +15,7 @@ public class OpenAIController : MonoBehaviour
     public TMP_InputField inputField;
     public Transform gate;
     
-    private string password = "Prompt-Engineering";
+    private string password = "Prompt Engineering";
 
     private OpenAIAPI api;
 
