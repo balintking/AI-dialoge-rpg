@@ -30309,7 +30309,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384740, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: jumpPower
-      value: 3
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459864850019384740, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: enableJump
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384740, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: lockCursor
@@ -50038,6 +50042,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueCanvas: {fileID: 2018586732}
   cameraController: {fileID: 1800167401}
+  inputField: {fileID: 1118776469}
+  canPlayerMove: 0
+  canCameraMove: 0
 --- !u!1001 &1810180164
 PrefabInstance:
   m_ObjectHideFlags: 0
