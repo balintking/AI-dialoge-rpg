@@ -110,4 +110,13 @@ public class OpenAIController : MonoBehaviour
     {
         gate.transform.position += new Vector3(0, 0.2f, 0);
     }
+    
+    // Update is called once per frame
+    private void Update()
+    {
+        if (inputField.isFocused && Input.GetKeyDown(KeyCode.Return))
+        {
+            OnSendButtonClicked();
+        }
+    }
 }

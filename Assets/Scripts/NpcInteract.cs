@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -9,11 +10,18 @@ public class NpcInteract : MonoBehaviour
     
     public FirstPersonController cameraController;
     
+    public TMP_InputField inputField;
+    
+    public bool canPlayerMove;
+    public bool canCameraMove;
+    
     // Start is called before the first frame update
     void Start()
     {
         dialogueCanvas.gameObject.SetActive(false);
         cameraController.SetCameraCanMove(true);
+        canCameraMove = true;
+        canPlayerMove = true;
     }
 
     // Update is called once per frame
@@ -30,15 +38,33 @@ public class NpcInteract : MonoBehaviour
                 countNPCs++;
             }
         }
-        if (countNPCs == 0 && dialogueCanvas.gameObject.activeSelf)
+
+        //enable or disable camera movement and dialogue canvas
+        switch (countNPCs)
         {
-            dialogueCanvas.gameObject.SetActive(false);
-            cameraController.SetCameraCanMove(true);
+            case 0 when !canCameraMove:
+                canCameraMove = true;
+                dialogueCanvas.gameObject.SetActive(false);
+                cameraController.SetCameraCanMove(true);
+                break;
+            case > 0 when canCameraMove:
+                canCameraMove = false;
+                dialogueCanvas.gameObject.SetActive(true);
+                cameraController.SetCameraCanMove(false);
+                break;
         }
-        else if (countNPCs > 0 && !dialogueCanvas.gameObject.activeSelf)
+
+        //enable or disable movement
+        switch (inputField.isFocused)
         {
-            dialogueCanvas.gameObject.SetActive(true);
-            cameraController.SetCameraCanMove(false);
+            case true when canPlayerMove:
+                canPlayerMove = false;
+                cameraController.SetPlayerCanMove(false);
+                break;
+            case false when !canPlayerMove:
+                canPlayerMove = true;
+                cameraController.SetPlayerCanMove(true);
+                break;
         }
     }
     

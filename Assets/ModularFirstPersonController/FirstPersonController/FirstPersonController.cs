@@ -533,6 +533,10 @@ public class FirstPersonController : MonoBehaviour
         lockCursor = canMove;
         Cursor.lockState = canMove ? CursorLockMode.Locked : CursorLockMode.None;
     }
+    public void SetPlayerCanMove(bool canMove)
+    {
+        playerCanMove = canMove;
+    }
 }
 
 
