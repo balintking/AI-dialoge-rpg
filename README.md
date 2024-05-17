@@ -25,8 +25,11 @@ Welcome to Medieval Password Quest, a Unity-based interactive game where players
 
 1. Clone the repository
 2. Open the project in Unity.
-3. Set up your ChatGPT API key in the system environments.
+3. Set up your ChatGPT API key in the system environments as `OPENAI_API_KEY`.
 4. Press Play to start the game and immerse yourself in the medieval quest.
+
+> [!IMPORTANT]
+> You won't be able to use the chat functions without a valid OpenAI API key
 
 ## Technical Details
 
